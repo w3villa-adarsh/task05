@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordian</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+            background-color: #f7f7f7;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background: white;
+        }
+
+        li {
+            margin-bottom: 2px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        h2:hover {
+            background-color: #f0f0f0;
+            color: #2196F3;
+        }
+
+        /* h2::before {
+            content: '+';
+            margin-right: 10px;
+            font-size: 1.2em;
+            color: #2196F3;
+        } */
+
+        li:has(p[style*="inline"]) h2::before {
+            content: '−';
+        }
+
+        p {
+            display: none;
+            padding: 20px;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #555;
+            line-height: 1.6;
+            border-top: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .rating {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .stars {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            gap: 5px;
+        }
+
+        .star {
+            font-size: 30px;
+            cursor: pointer;
+            color: #ddd;
+        }
+
+        .star:hover,
+        .star:hover ~ .star {
+            color: #ffd700;
+        }
+
+        .star.active {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul>
+            <li class="item item1">
+                <h2>What is HTML?</h2>
+                <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. It describes the structure of web pages using markup, defining elements like headings, paragraphs, images, links, and other content that makes up a webpage's structure.</p>
+            </li>
+            <li class="item item2">
+                <h2>What is CSS?</h2>
+                <p>CSS (Cascading Style Sheets) is a style sheet language used for describing the presentation of a document written in HTML. It handles the visual layout, colors, fonts, spacing, and overall appearance of web pages, making them visually appealing and responsive.</p>
+            </li>
+            <li class="item item3">
+                <h2>What is JavaScript?</h2>
+                <p>JavaScript is a high-level, interpreted programming language that enables interactive web pages. It allows you to implement complex features on web pages like dynamic content updates, interactive maps, animated graphics, and much more. It's a core technology of the World Wide Web.</p>
+            </li>
+            <li class="item item4">
+                <h2>What is DOM?</h2>
+                <p>The DOM (Document Object Model) is a programming interface for HTML documents. It represents the page as a tree-like hierarchy of objects that can be modified with JavaScript. It allows programs to change the document structure, style, and content dynamically.</p>
+            </li>
+            <li class="item item5">
+                <h2>What is API?</h2>
+                <p>API (Application Programming Interface) is a set of rules and protocols that allows different software applications to communicate with each other. In web development, APIs enable the integration of various services, data exchange between client and server, and access to external functionality.
+
+
+                </p>
+            </li> 
+        </ul>
+    </div>
+
+    <div class="rating">
+        <h1>Rate this document</h1>
+        <div class="stars">
+            <span class="star" data-rating="5">★</span>
+            <span class="star" data-rating="4">★</span>
+            <span class="star" data-rating="3">★</span>
+            <span class="star" data-rating="2">★</span>
+            <span class="star" data-rating="1">★</span>
+        </div>
+    </div>
+
+    <script>
+        const listItems = document.querySelectorAll('li');
+        let activeClass;
+        
+        listItems.forEach(item => {
+            item.addEventListener('click', function() {
+                let pactive;
+                if (activeClass !== undefined) {
+                    pactive = document.getElementsByClassName(activeClass)[0].getElementsByTagName('p')[0];
+                    pactive.style.display = 'none';
+                }
+                
+                activeClass = this.className.split(' ')[1];
+                const pTag = document.getElementsByClassName(activeClass)[0].getElementsByTagName('p')[0];
+                const hTag = document.getElementsByClassName(activeClass)[0].getElementsByTagName('h2')[0];
+
+    
+                if (pactive !== pTag) {
+                    pTag.style.display = 'block';    
+                }else{
+                    activeClass = undefined
+                }
+            });
+        });
+
+        // Add star rating functionality
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                stars.forEach(s => {
+                    s.classList.remove('active');
+                    if (s.getAttribute('data-rating') <= rating) {
+                        s.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
