@@ -164,9 +164,23 @@
 
         // Add star rating functionality
         const stars = document.querySelectorAll('.star');
+        
+        // Load saved rating on page load
+        const savedRating = localStorage.getItem('documentRating');
+        if (savedRating) {
+            stars.forEach(s => {
+                if (s.getAttribute('data-rating') <= savedRating) {
+                    s.classList.add('active');
+                }
+            });
+        }
+
         stars.forEach(star => {
             star.addEventListener('click', function() {
                 const rating = this.getAttribute('data-rating');
+                // Save to localStorage
+                localStorage.setItem('documentRating', rating);
+                
                 stars.forEach(s => {
                     s.classList.remove('active');
                     if (s.getAttribute('data-rating') <= rating) {

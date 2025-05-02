@@ -1,0 +1,30 @@
+RewriteEngine On
+RewriteBase /
+
+# Remove .html extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Handle component requests
+RewriteRule ^components/ - [L]
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    // ...existing head content...
+</head>
+<body>
+    <div id="header"></div>
+
+    <!-- Page specific content -->
+    // ...existing page content...
+
+    <div id="footer"></div>
+
+    <!-- Scripts -->
+    <script src="/js/components.js"></script>
+    // ...existing scripts...
+</body>
+</html>

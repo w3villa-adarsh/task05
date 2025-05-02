@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Ecomme</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./components/header-footer.css">
+</head>
+<body>
+    
+    <div id="header"></div>
+
+    <div class="about-page">
+        <div class="about-content">
+            <h1>About Ecomme</h1>
+            <p class="mission">Revolutionizing footwear shopping with premium quality, style, and unbeatable prices.</p>
+            <div class="about-sections">
+                <div class="about-section">
+                    <h2>Our Story</h2>
+                    <p>Founded in 2023, Ecomme has quickly become a leading destination for footwear enthusiasts. What started as a passion for quality shoes has evolved into a comprehensive online platform serving thousands of satisfied customers worldwide.</p>
+                    <p>We believe that everyone deserves access to high-quality, stylish footwear without breaking the bank. Our commitment to this vision drives everything we do.</p>
+                </div>
+                <div class="about-section">
+                    <h2>Why Choose Us</h2>
+                    <ul>
+                        <li>Premium Quality Assurance</li>
+                        <li>30-Day Money Back Guarantee</li>
+                        <li>Free Shipping Worldwide</li>
+                        <li>24/7 Customer Support</li>
+                        <li>Secure Payment Options</li>
+                        <li>Regular Exclusive Offers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="./components/header.js"></script>
+    <script src="./js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.CartManager) {
+                CartManager.initialize();
+            }
+        });
+    </script>
+</body>
+</html>

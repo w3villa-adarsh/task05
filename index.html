@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Ecomme</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./components/header-footer.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Step into Style</h1>
+            <p>Discover the perfect shoes for every occasion</p>
+            <a href="products.html" class="cta-button">Shop Now</a>
+        </div>
+    </div>
+
+    <div class="featured-categories">
+        <h2>Popular Categories</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/e48d6035-bd8a-4747-9fa1-04ea596bb074/blazer-mid-77-vintage-shoes-dNWPTj.png" alt="Running">
+                <h3>Running</h3>
+            </div>
+            <div class="category-card">
+                <img src="https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/fd17b420-b388-4c8a-aaaa-e0a98ddf175f/dunk-high-retro-shoe-DdRmMZ.png" alt="Basketball">
+                <h3>Basketball</h3>
+            </div>
+            <div class="category-card">
+                <img src="https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/380464/01/sv01/fnd/IND/fmt/png/Suede-Classic-XXI-Sneakers" alt="Casual">
+                <h3>Casual</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Featured Products</h2>
+        <div class="products-grid" id="productsContainer">
+            <!-- Products will be dynamically inserted here -->
+            <button class="add-to-cart" onclick="addToCart('${product.id}', '${product.name}', '${product.price}', '${product.image}')">
+                Add to Cart
+            </button>
+                            Add to Cart
+            </button>
+        </div>
+    </div>
+
+    <div id="ratingModal" class="rating-modal">
+        <div class="rating-content">
+            <h2>Rate Product</h2>
+            <div class="product-to-rate">
+                <img id="rateProductImage" src="" alt="Product">
+                <h3 id="rateProductName"></h3>
+            </div>
+            <div class="rating-stars">
+                <span class="star" data-rating="1">☆</span>
+                <span class="star" data-rating="2">☆</span>
+                <span class="star" data-rating="3">☆</span>
+                <span class="star" data-rating="4">☆</span>
+                <span class="star" data-rating="5">☆</span>
+            </div>
+            <textarea id="reviewText" placeholder="Write your review (optional)"></textarea>
+            <div class="rating-buttons">
+                <button id="submitRating">Submit</button>
+                <button id="closeRating">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="./js/productData.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./index.js"></script>
+    <script src="./cart.js"></script>
+    <script src="components/header.js"></script>
+</body>
+</html>
