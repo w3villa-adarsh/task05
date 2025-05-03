@@ -83,7 +83,56 @@ class OrderManager {
 
 // Initialize orders display if on orders page
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('ordersContainer')) {
-        OrderManager.displayOrders();
+    const ordersContainer = document.getElementById('ordersContainer');
+    
+    // Function to fetch orders from localStorage
+    function getOrders() {
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        return orders;
+    }
+
+    // Function to display orders
+    function displayOrders() {
+        const orders = getOrders();
+        
+        if (orders.length === 0) {
+            ordersContainer.innerHTML = '<p>No orders found.</p>';
+            return;
+        }
+
+        ordersContainer.innerHTML = orders.map(order => `
+            <div class="order-item">
+                <div class="order-header">
+                    <div>
+                        <h3>Order #${order.id}</h3>
+                        <p>Date: ${new Date(order.date).toLocaleDateString()}</p>
+                    </div>
+                    <div>
+                        <p>Total: $${order.total.toFixed(2)}</p>
+                        <p>Status: ${order.status}</p>
+                    </div>
+                </div>
+                <div class="order-products">
+                    ${order.products.map(product => `
+                        <div class="order-product">
+                            <img src="${product.image}" alt="${product.name}">
+                            <div>
+                                <h4>${product.name}</h4>
+                                <p>Quantity: ${product.quantity}</p>
+                                <p>Price: $${product.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Check if user is logged in
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+        window.location.href = 'login.html';
+    } else {
+        displayOrders();
     }
 });

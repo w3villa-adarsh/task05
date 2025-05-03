@@ -12,7 +12,7 @@
     position: fixed;
     left: 0;
     top: 76px;  /* Align with top of filter sidebar */
-    z-index: 1000;
+    z-index: 1;
     padding: 10px 15px;
     background: #3498db;
     color: white;
@@ -22,7 +22,14 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.filter-toggle span i {
+    transition: transform 0.3s ease;
+}
+
+.filter-toggle.active span i {
+    transform: rotate(180deg);
 }
 
 /* Product Grid Layout */
@@ -585,4 +592,197 @@
     }
 }
 
+/* Sidebar initially hidden (slides out) */
+.filter-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
 
+/* Show sidebar */
+.filter-sidebar.visible {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Filter button container (always visible) */
+.filter-toggle {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Only the button (blue part) inside filter-toggle */
+.filter-toggle span {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px 0 0 5px;
+}
+
+/* Hide text "Filters" unless sidebar is open */
+.filter-sidebar.visible ~ .products-grid + #filterToggle span::after {
+    content: " Filters";
+    margin-left: 8px;
+}
+
+.price-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.price-inputs input {
+    width: 80px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.reset-filters {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reset-filters:hover {
+    background-color: #c0392b;
+}
+
+.price-slider-container {
+    margin: 1em 0;
+  }
+  .slider {
+    position: relative;
+    height: 40px;
+  }
+  .slider input[type=range] {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    -webkit-appearance: none;
+    background: none;
+  }
+  .slider input[type=range]::-webkit-slider-thumb {
+    pointer-events: all;
+    width: 16px;
+    height: 16px;
+    background: #444;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  .price-values {
+    margin-bottom: 0.5em;
+    font-weight: bold;
+  }
+
+/* Price Range Slider Styles */
+.price-slider-container {
+    margin: 20px 0;
+    position: relative;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background: #ddd;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.slider input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    background: none;
+    position: absolute;
+    pointer-events: none;
+}
+
+.slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    margin-top: -7px;
+}
+
+.slider input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #3498db;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    border: none;
+}
+
+.price-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.price-inputs {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.price-inputs input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.reset-filters {
+    width: 100%;
+    padding: 12px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.reset-filters:hover {
+    background: #c0392b;
+}

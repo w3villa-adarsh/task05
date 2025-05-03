@@ -1,84 +1,80 @@
-class AuthManager {
-    static init() {
-        this.setupDropdown();
-        this.updateUI();
-        this.setupLogout();
-    }
+const API_URL = 'https://fakestoreapi.com';
 
-    static setupDropdown() {
-        const userIcon = document.getElementById('userIcon');
-        const dropdown = document.getElementById('profileDropdown');
-
-        if (userIcon && dropdown) {
-            userIcon.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const username = localStorage.getItem('username');
-                if (!username) {
-                    window.location.href = 'login.html';
-                    return;
-                }
-                dropdown.classList.toggle('active');
-            });
-
-            // Handle clicks on dropdown items
-            dropdown.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const link = e.target.closest('a');
-                if (link) {
-                    if (link.id === 'logoutBtn') {
-                        this.logout();
-                    } else {
-                        window.location.href = link.getAttribute('href');
-                    }
-                    dropdown.classList.remove('active');
-                }
-            });
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', () => {
-                dropdown.classList.remove('active');
-            });
+async function login(username, password) {
+    try {
+        const response = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username,
+                password
+            })
+        });
+        const data = await response.json();
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('username', username);
+            return true;
         }
-    }
-
-    static updateUI() {
-        const username = localStorage.getItem('username');
-        const userSpan = document.getElementById('username');
-        const dropdown = document.getElementById('profileDropdown');
-
-        if (username) {
-            userSpan.textContent = username;
-            // Remove the anchor tag if it exists
-            const userIcon = document.getElementById('userIcon');
-            if (userIcon.querySelector('a')) {
-                userIcon.innerHTML = `<span id="username">${username}</span>`;
-            }
-            dropdown?.classList.add('logged-in');
-        } else {
-            userSpan.textContent = 'Login';
-            dropdown?.classList.remove('logged-in');
-        }
-    }
-
-    static setupLogout() {
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.logout();
-            });
-        }
-    }
-
-    static logout() {
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('username');
-        window.location.href = 'login.html';
+        return false;
+    } catch (error) {
+        console.error('Login error:', error);
+        return false;
     }
 }
 
-// Initialize auth management
+function isLoggedIn() {
+    return !!localStorage.getItem('token');
+}
+
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    window.location.reload();
+}
+
+function updateHeaderAuth() {
+    const userCart = document.getElementById('userCart');
+    const isAuthenticated = isLoggedIn();
+
+    if (isAuthenticated) {
+        userCart.innerHTML = `
+            <div class="user-icon">👤
+                <div class="user-popup">
+                    <ul>
+                        <li><a href="./profile.html">Profile</a></li>
+                        <li><a href="./orders.html">Orders</a></li>
+                        <li><a href="javascript:void(0)" onclick="handleLogout()">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+            <a href="./cart.html"><div class="cart-icon">🛒 <span id="cartCount">0</span></div></a>
+        `;
+    } else {
+        userCart.innerHTML = `
+            <div class="auth-content">
+                <button onclick="handleLogin()" class="auth-btn login-btn">Login</button>
+                <button onclick="handleSignup()" class="auth-btn signup-btn">Sign Up</button>
+            </div>
+        `;
+    }
+}
+
+function handleLogin() {
+    window.location.href = './login.html';
+}
+
+function handleSignup() {
+    window.location.href = './signup.html';
+}
+
+function handleLogout() {
+    logout();
+}
+
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    AuthManager.init();
+    updateHeaderAuth();
 });
