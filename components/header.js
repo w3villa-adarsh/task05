@@ -74,6 +74,23 @@ fetch('./components/header.html')
     });
 
     updateCartCount()
+
+    const themeToggle = document.getElementById('themeToggle');
+const htmlElement = document.documentElement;
+
+// Check for saved user preference, if any, on load of the website
+const savedTheme = localStorage.getItem('theme') || 'light';
+htmlElement.setAttribute('data-theme', savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    console.log('clicked')
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+});
+
     
 });
 
@@ -102,3 +119,5 @@ function updateCartCount() {
         cartCountElement.textContent = count;
     }
 }
+
+
