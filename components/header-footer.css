@@ -1,4 +1,3 @@
-/* Header Styles */
 .header {
     background: linear-gradient(to right, #2c3e50, #3498db);
     position: sticky;
@@ -18,6 +17,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
@@ -107,12 +107,15 @@
 }
 
 #cartCount {
+    position: absolute;
+    top: -8px;
+    right: -8px;
     background: #e74c3c;
     color: white;
-    padding: 2px 6px;
     border-radius: 50%;
-    font-size: 12px;
-    font-weight: bold;
+    padding: 3px 8px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
 }
 
 /* User Popup */
@@ -367,4 +370,22 @@
         grid-template-columns: 1fr;
         padding: 0 10px;
     }
+}
+
+
+
+.login-btn  {
+    display: block;
+    background-color: #007bff; 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }

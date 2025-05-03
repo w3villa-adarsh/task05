@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Check if user is logged in
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = localStorage.getItem('isLoggedIn');
     if (!user) {
         window.location.href = 'login.html';
     } else {

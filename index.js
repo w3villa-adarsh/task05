@@ -122,11 +122,10 @@ function removeFromCart(productId) {
     updateCartDisplay();
 }
 
-// Enhanced search functionality
 document.getElementById('searchInput')?.addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const productCards = document.querySelectorAll('.card');
-    
+    console.log('method executed')
     productCards.forEach(card => {
         const productName = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
         const productBrand = card.querySelector('.brand')?.textContent.toLowerCase() || '';
@@ -142,14 +141,12 @@ document.getElementById('searchInput')?.addEventListener('input', (e) => {
     });
 });
 
-// Replace cart modal controls with navigation
+
 document.getElementById('cartIcon')?.addEventListener('click', () => {
     window.location.href = 'cart.html';
 });
 
-// Remove modal-related code and keep other functionality
 
-// Add checkout button functionality
 document.getElementById('checkoutBtn').addEventListener('click', () => {
     alert('Thank you for your purchase!');
     cart = [];
@@ -158,7 +155,6 @@ document.getElementById('checkoutBtn').addEventListener('click', () => {
     document.getElementById('cartModal').style.display = 'none';
 });
 
-// Rating functionality
 let currentProductToRate = null;
 
 function showRatingModal(productName) {
@@ -174,7 +170,6 @@ function showRatingModal(productName) {
     productName.textContent = product.name;
     modal.style.display = 'flex';
 
-    // Reset stars and review
     document.querySelectorAll('.rating-stars .star').forEach(star => {
         star.classList.remove('active');
         star.textContent = '☆';
@@ -182,7 +177,6 @@ function showRatingModal(productName) {
     document.getElementById('reviewText').value = '';
 }
 
-// Update stars on hover and click
 document.querySelectorAll('.rating-stars .star').forEach(star => {
     star.addEventListener('mouseover', function() {
         const rating = this.dataset.rating;
@@ -213,23 +207,20 @@ function updateStars(rating) {
     });
 }
 
-// Submit rating
 document.getElementById('submitRating').addEventListener('click', function() {
     const rating = document.querySelectorAll('.rating-stars .star[data-rating]').length;
     const review = document.getElementById('reviewText').value;
     
-    // Here you would typically send this to a backend
     alert(`Thank you for rating ${currentProductToRate.name}!\nRating: ${rating}/5\nReview: ${review}`);
     
     document.getElementById('ratingModal').style.display = 'none';
 });
 
-// Close rating modal
 document.getElementById('closeRating').addEventListener('click', function() {
     document.getElementById('ratingModal').style.display = 'none';
 });
 
-// Initialize
+
 document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
     if (!window.products) {
@@ -247,13 +238,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const userIcon = document.getElementById("userIcon");
     const userPopup = document.getElementById("userPopup");
 
-    // Toggle the popup when the user icon is clicked
     userIcon.addEventListener("click", () => {
         console.log('clicked')
         userPopup.classList.toggle("active");
     });
 
-    // Close the popup if clicked outside
     document.addEventListener("click", (event) => {
         console.log('clicked')
         if (!userIcon.contains(event.target) && !userPopup.contains(event.target)) {
@@ -261,3 +250,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+

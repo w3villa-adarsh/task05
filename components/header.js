@@ -33,14 +33,55 @@ function initializeHeader() {
         });
     }
 }
-
 fetch('./components/header.html')
-.then(res => res.text())
-.then(data => {
-  document.getElementById('header').innerHTML = data;
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById('header').innerHTML = data;
+
+    initializeHeader(); 
+
+    const userCart = document.getElementById('user-cart');
+    const loginBtn = document.getElementById('login-btn');
+    const isLoggedIn =  localStorage.getItem('isLoggedIn');
+
+
+    if (isLoggedIn) {
+        userCart.style.display = 'flex';
+        loginBtn.style.display = 'none';
+    } else {
+        userCart.style.display = 'none';
+        loginBtn.style.display = 'block';
+    }
+
+
+    
+document.getElementById('searchInput')?.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const productCards = document.querySelectorAll('.product-item');
+    console.log('method executed')
+    productCards.forEach(card => {
+        const productName = card.querySelector('.product-name')?.textContent.toLowerCase() || '';
+        const productBrand = card.querySelector('.brand')?.textContent.toLowerCase() || '';
+        const productDescription = card.querySelector('.product-description')?.textContent.toLowerCase() || '';
+        
+        if (productName.includes(searchTerm) || 
+            productBrand.includes(searchTerm) || 
+            productDescription.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
 });
+    
+});
+
 fetch('./components/footer.html')
 .then(res => res.text())
 .then(data => {
   document.getElementById('footer').innerHTML = data;
 });
+
+
+
+
