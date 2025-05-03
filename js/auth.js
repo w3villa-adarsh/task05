@@ -33,13 +33,7 @@ function isLoggedIn() {
     return !!localStorage.getItem('token') && localStorage.getItem('isLoggedIn') === 'true';
 }
 
-function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('returnUrl');
-    window.location.href = './index.html';
-}
+
 
 function updateHeaderAuth() {
     const userCart = document.getElementById('userCart');
